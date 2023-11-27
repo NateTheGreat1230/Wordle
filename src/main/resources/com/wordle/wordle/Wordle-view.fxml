@@ -15,6 +15,17 @@
     <Label fx:id="answer"/>
     <Button text="Get Guess" onAction="#onHelloButtonClick"/>
     <TextField fx:id="guess1"/>
+    <Label fx:id="right1"/>
+    <TextField fx:id="guess2"/>
+    <Label fx:id="right2"/>
+    <TextField fx:id="guess3"/>
+    <Label fx:id="right3"/>
+    <TextField fx:id="guess4"/>
+    <Label fx:id="right4"/>
+    <TextField fx:id="guess5"/>
+    <Label fx:id="right5"/>
+    <TextField fx:id="guess6"/>
+    <Label fx:id="right6"/>
     <Button text="Submit" onAction="#onSubmit"/>
-    <Label fx:id="right"/>
+    <Label fx:id="score"/>
 </VBox>
