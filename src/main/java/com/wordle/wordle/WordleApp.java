@@ -19,6 +19,8 @@ public class WordleApp extends Application {
         stage.setTitle("Wordle Game");
         stage.setScene(scene);
         stage.show();
+        WordleController controller = fxmlLoader.getController();
+        controller.addEventListeners();
     }
     public static void main(String[] args) {launch();}
 }

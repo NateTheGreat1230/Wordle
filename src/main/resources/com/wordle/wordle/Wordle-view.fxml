@@ -12,13 +12,14 @@
     <top>
         <VBox>
             <Text text="Wordle" styleClass="title"/>
-            <Button text="Begin Playing" onAction="#onStartClick"/>
+            <Label text="" fx:id="errorSpot"/>
+            <!--<Button text="Begin Playing" onAction="#onStartClick"/>-->
         </VBox>
     </top>
     <center>
         <GridPane styleClass="wrapper">
             <VBox styleClass="container">
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess1">
                     <TextField fx:id="Guess1L1" styleClass="input-box"/>
                     <TextField fx:id="Guess1L2" styleClass="input-box"/>
                     <TextField fx:id="Guess1L3" styleClass="input-box"/>
