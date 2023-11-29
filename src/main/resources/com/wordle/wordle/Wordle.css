@@ -1,0 +1,120 @@
+.root {
+    -fx-padding: 0;
+    -fx-margin: 0;
+    -fx-border-box: box-sizing;
+    -fx-font-family: "Poppins", sans-serif;
+}
+
+.body {
+    -fx-background-color: linear-gradient(to bottom right, #c59cff, #7e5bfb);
+}
+
+.wrapper {
+    -fx-position: absolute;
+    -fx-translate-x: -50%;
+    -fx-translate-y: -50%;
+    -fx-top: 50%;
+    -fx-left: 50%;
+    -fx-display: flex;
+    -fx-gap: 1em;
+    -fx-background-color: #ffffff;
+    -fx-padding: 1em;
+    -fx-background-radius: 25 25 25 25;
+    -fx-max-width: 25em;
+    -fx-max-height: 32em;
+    -fx-alignment: center;
+}
+
+.container,
+.rules {
+    -fx-min-width: 18.75em;
+    -fx-min-height: 22.5em;
+    -fx-max-width: 20em;
+    -fx-max-height: 25em;
+    -fx-alignment: center;
+}
+
+.input-group {
+    -fx-display: grid;
+    -fx-width: 100%;
+    -fx-grid-columns: auto auto auto auto auto;
+    -fx-column-gap: 5em;
+    -fx-margin: 0.2em 0;
+}
+.title {
+    -fx-font-size: 2em;
+    -fx-min-width: 1.7em;
+    -fx-max-width: 2.3em;
+    -fx-min-height: 1.7em;
+    -fx-alignment: center;
+    -fx-font-weight: 600;
+}
+.input-box {
+    -fx-font-size: 2em;
+    -fx-text-fill: #1f579e;
+    -fx-min-width: 1.7em;
+    -fx-max-width: 2.3em;
+    -fx-min-height: 1.7em;
+    -fx-alignment: center;
+    -fx-border-color: #000000;
+    -fx-line-spacing: 1;
+    -fx-font-weight: 600;
+    -fx-text-transform: uppercase;
+}
+.input-box:disabled {
+    -fx-text-fill: #000000;
+}
+
+.correct {
+    -fx-background-color: #6aaa64;
+}
+
+.exists {
+    -fx-background-color: #c9b458;
+}
+
+.incorrect {
+    -fx-background-color: #787c7e;
+}
+
+.correct,
+.exists,
+.incorrect {
+    -fx-text-fill: #ffffff;
+}
+
+.win-screen {
+    -fx-font-weight: 400;
+    -fx-position: absolute;
+    -fx-background-color: #ffffff;
+    -fx-min-height: 100%;
+    -fx-min-width: 100%;
+    -fx-top: 0;
+    -fx-left: 0;
+    -fx-border-radius: 0.5em;
+    -fx-display: flex;
+    -fx-align-items: center;
+    -fx-justify-content: center;
+    -fx-flex-direction: column;
+    -fx-gap: 1em;
+}
+.win-screen button {
+    -fx-font-size: 1.2em;
+    -fx-background-color: #7e5bfb;
+    -fx-border-width: 0;
+    -fx-padding: 0.8em 2em;
+    -fx-border-radius: 2em;
+}
+
+.hide {
+    -fx-display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .wrapper {
+        -fx-flex-direction: column;
+        -fx-translate-x: -50%;
+        -fx-left: 50%;
+        -fx-top: 0.5em;
+    }
+}

@@ -1,31 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.wordle.wordle.WordleController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="answer"/>
-    <Button text="Get Guess" onAction="#onHelloButtonClick"/>
-    <TextField fx:id="guess1"/>
-    <Label fx:id="right1"/>
-    <TextField fx:id="guess2"/>
-    <Label fx:id="right2"/>
-    <TextField fx:id="guess3"/>
-    <Label fx:id="right3"/>
-    <TextField fx:id="guess4"/>
-    <Label fx:id="right4"/>
-    <TextField fx:id="guess5"/>
-    <Label fx:id="right5"/>
-    <TextField fx:id="guess6"/>
-    <Label fx:id="right6"/>
-    <Button text="Submit" onAction="#onSubmit"/>
-    <Label fx:id="score"/>
-</VBox>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<BorderPane stylesheets="Wordle.css" styleClass="root, body" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wordle.wordle.WordleController">
+    <top>
+        <VBox>
+            <Text text="Wordle" styleClass="title"/>
+            <Button text="Begin Playing" onAction="#onStartClick"/>
+        </VBox>
+    </top>
+    <center>
+        <GridPane styleClass="wrapper">
+            <VBox styleClass="container">
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess1L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess1L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess1L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess1L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess1L5" styleClass="input-box"/>
+                </HBox>
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess2L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess2L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess2L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess2L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess2L5" styleClass="input-box"/>
+                </HBox>
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess3L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess3L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess3L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess3L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess3L5" styleClass="input-box"/>
+                </HBox>
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess4L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess4L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess4L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess4L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess4L5" styleClass="input-box"/>
+                </HBox>
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess5L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess5L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess5L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess5L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess5L5" styleClass="input-box"/>
+                </HBox>
+                <HBox styleClass="input-group">
+                    <TextField fx:id="Guess6L1" styleClass="input-box"/>
+                    <TextField fx:id="Guess6L2" styleClass="input-box"/>
+                    <TextField fx:id="Guess6L3" styleClass="input-box"/>
+                    <TextField fx:id="Guess6L4" styleClass="input-box"/>
+                    <TextField fx:id="Guess6L5" styleClass="input-box"/>
+                </HBox>
+            </VBox>
+        </GridPane>
+    </center>
+    <bottom>
+        <!--<Button text="Submit" onAction="#onSubmit"/>
+        <Label fx:id="score"/>
+        <Label fx:id="right1"/>
+        <Label fx:id="right2"/>
+        <Label fx:id="right3"/>
+        <Label fx:id="right4"/>
+        <Label fx:id="right5"/>
+        <Label fx:id="right6"/>-->
+        <Label fx:id="answer"/>
+        <Button text="Get Guess" onAction="#onGetGuessClick"/>
+    </bottom>
+</BorderPane>
