@@ -99,7 +99,6 @@ public class WordleController {
     protected void addEventListeners() {
         makeListSwitch();
         setCurrent(Guess1L1);
-        Guess1L2.setFocusTraversable(false);
         Guess1L1.requestFocus();
         addLimiterAndListenerFirst(Guess1L1);
         addLimiterAndListener(Guess1L2);
@@ -229,6 +228,8 @@ public class WordleController {
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            String str = tf.getText().toUpperCase();
+            tf.setText(str);
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
@@ -263,6 +264,8 @@ public class WordleController {
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            String str = tf.getText().toUpperCase();
+            tf.setText(str);
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
@@ -298,6 +301,8 @@ public class WordleController {
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            String str = tf.getText().toUpperCase();
+            tf.setText(str);
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);

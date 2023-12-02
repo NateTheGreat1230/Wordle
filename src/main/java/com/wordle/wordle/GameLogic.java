@@ -42,7 +42,8 @@ public class GameLogic {
             System.out.println(e);
         }
     }
-    public boolean inList(String guess) throws FileNotFoundException {
+    public boolean inList(String guessUpper) throws FileNotFoundException {
+        String guess = guessUpper.toLowerCase();
         File file = new File("src/main/resources/com/wordle/wordle/Words.txt");
         Scanner scan = new Scanner(file);
         while (scan.hasNextLine()) {
@@ -52,7 +53,8 @@ public class GameLogic {
         }
         return false;
     }
-    public String[] checkWord(String guess) {
+    public String[] checkWord(String guessUpper) {
+        String guess = guessUpper.toLowerCase();
         guessNum++;
         String[] correct = new String[5];
         for (int j = 0; j < 5; j++) {

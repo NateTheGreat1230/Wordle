@@ -15,7 +15,7 @@ public class WordleApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(WordleApp.class.getResource("Wordle-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
-        scene.getStylesheets().add(getClass().getResource("Wordle.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Wordle.css")).toExternalForm());
         stage.setTitle("Wordle Game");
         stage.setScene(scene);
         stage.show();
