@@ -19,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

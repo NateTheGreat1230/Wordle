@@ -51,6 +51,8 @@
 }
 .input-box {
     -fx-control-inner-background: #121213ff;
+    -fx-focus-color: #000000;
+    -fx-faint-focus-color: #000000;
     -fx-display-caret: false;
     -fx-font-size: 2em;
     -fx-text-fill: #f8f8f8;
