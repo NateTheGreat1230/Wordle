@@ -26,22 +26,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class WordleController {
-    public VBox grid;
     GameLogic logic = new GameLogic();
     String word = logic.getWord();
     ArrayList<TextField> textBoxes = new ArrayList<>();
-    @FXML
-    private HBox guess1;
-    @FXML
-    private HBox guess2;
-    @FXML
-    private HBox guess3;
-    @FXML
-    private HBox guess4;
-    @FXML
-    private HBox guess5;
-    @FXML
-    private HBox guess6;
     @FXML
     private Label answer;
     @FXML
@@ -205,6 +192,7 @@ public class WordleController {
         KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
         KeyCombination tabPressed = new KeyCodeCombination(KeyCode.TAB);
         KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
+        String tfText = tf.getText();
         tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -225,7 +213,9 @@ public class WordleController {
                         if (logic.inList(guess) == true) {
                             String[] checked = logic.checkWord(guess);
                             setColors(checked);
-                            traverseForward();
+                            if (textBoxes.indexOf(current)+1 != textBoxes.size()) {
+                                traverseForward();
+                            }
                         } else {
                             errorSpot.setText("Not in word list.");
                         }
@@ -377,19 +367,12 @@ public class WordleController {
         if (Arrays.equals(guess, new String[]{"true", "true", "true", "true", "true"})) {
             Label label = new Label("you win!");
             Popup popup = new Popup();
-
-            // set background
             label.setStyle("-fx-background-color: white;");
-
-            // add the label
             popup.getContent().add(label);
-
-            // set size of label
             label.setMinWidth(80);
             label.setMinHeight(50);
             Window window = Guess1L4.getScene().getWindow();
             popup.show(window);
-            //popup.show((Window) Stage.getWindows().stream().filter(Window::isShowing));
         }
     }
     public void setCurrent(TextField tf) {
