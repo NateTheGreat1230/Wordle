@@ -13,7 +13,6 @@
         <VBox>
             <Text text="Wordle" styleClass="title"/>
             <Label text="" fx:id="errorSpot"/>
-            <!--<Button text="Begin Playing" onAction="#onStartClick"/>-->
         </VBox>
     </top>
     <center>
@@ -65,15 +64,9 @@
         </GridPane>
     </center>
     <bottom>
-        <!--<Button text="Submit" onAction="#onSubmit"/>
-        <Label fx:id="score"/>
-        <Label fx:id="right1"/>
-        <Label fx:id="right2"/>
-        <Label fx:id="right3"/>
-        <Label fx:id="right4"/>
-        <Label fx:id="right5"/>
-        <Label fx:id="right6"/>-->
-        <Label fx:id="answer"/>
-        <Button text="Get Guess" onAction="#onGetGuessClick"/>
+        <VBox>
+            <Label fx:id="answer"/>
+            <Button text="Get Guess" onAction="#onGetGuessClick"/>
+        </VBox>
     </bottom>
 </BorderPane>

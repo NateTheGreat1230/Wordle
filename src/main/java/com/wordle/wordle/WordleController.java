@@ -1,5 +1,6 @@
 package com.wordle.wordle;
 
+import javafx.stage.Window;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,9 +17,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class WordleController {
     GameLogic logic = new GameLogic();
@@ -219,16 +224,17 @@ public class WordleController {
                     String guess = makeString();
                     try {
                         if (logic.inList(guess) == true) {
-                            System.out.println(Arrays.toString(logic.checkWord(guess)));
+                            String[] checked = logic.checkWord(guess);
+                            setColors(checked);
+                            Robot robot = new Robot();
+                            robot.keyPress(KeyCode.TAB);
+                            robot.keyRelease(KeyCode.TAB);
                         } else {
                             errorSpot.setText("Not in word list.");
                         }
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
-                    Robot robot = new Robot();
-                    robot.keyPress(KeyCode.TAB);
-                    robot.keyRelease(KeyCode.TAB);
                 }
             }
         });
@@ -275,5 +281,77 @@ public class WordleController {
     @FXML
     protected void onGetGuessClick() {
         answer.setText(logic.getGuess());
+    }
+    public void setColors(String[] guess) {
+        switch (logic.guessNum) {
+            case 1: {
+                TextField[] tf = new TextField[]{Guess1L1, Guess1L2, Guess1L3, Guess1L4, Guess1L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            } case 2: {
+                TextField[] tf = new TextField[]{Guess2L1, Guess2L2, Guess2L3, Guess2L4, Guess2L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            } case 3: {
+                TextField[] tf = new TextField[]{Guess3L1, Guess3L2, Guess3L3, Guess3L4, Guess3L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            } case 4: {
+                TextField[] tf = new TextField[]{Guess4L1, Guess4L2, Guess4L3, Guess4L4, Guess4L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            } case 5: {
+                TextField[] tf = new TextField[]{Guess5L1, Guess5L2, Guess5L3, Guess5L4, Guess5L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            } case 6: {
+                TextField[] tf = new TextField[]{Guess6L1, Guess6L2, Guess6L3, Guess6L4, Guess6L5};
+                makeMap(tf, guess);
+                checkWin(guess);
+                break;
+            }
+        }
+    }
+    public void makeMap(TextField[] tf, String[] guess) {
+        Map<TextField, String> map = new LinkedHashMap<>();
+        for (int i = 0; i < 5; i++) {
+            map.put(tf[i], guess[i]);
+        }
+        for (Map.Entry<TextField, String> entry : map.entrySet()) {
+            setColors(entry.getKey(), entry.getValue());
+        }
+    }
+    public void setColors(TextField tf, String letter) {
+        if (letter.equals("true")) {
+            tf.setStyle("-fx-control-inner-background: #538d4eff");
+        } else if (letter.equals("false")) {
+            tf.setStyle("-fx-control-inner-background: #3a3a3cff");
+        } else if (letter.equals("contains")) {
+            tf.setStyle("-fx-control-inner-background: #b59f3bff");
+        }
+    }
+    public void checkWin(String[] guess) {
+        if (Arrays.equals(guess, new String[]{"true", "true", "true", "true", "true"})) {
+            Label label = new Label("you win!");
+            Popup popup = new Popup();
+
+            // set background
+            label.setStyle("-fx-background-color: white;");
+
+            // add the label
+            popup.getContent().add(label);
+
+            // set size of label
+            label.setMinWidth(80);
+            label.setMinHeight(50);
+            Window window = Guess1L4.getScene().getWindow();
+            popup.show(window);
+            //popup.show((Window) Stage.getWindows().stream().filter(Window::isShowing));
+        }
     }
 }

@@ -17,7 +17,7 @@
     -fx-left: 50%;
     -fx-display: flex;
     -fx-gap: 1em;
-    -fx-background-color: #ffffff;
+    -fx-background-color: #121213ff;
     -fx-padding: 1em;
     -fx-background-radius: 25 25 25 25;
     -fx-max-width: 25em;
@@ -25,8 +25,7 @@
     -fx-alignment: center;
 }
 
-.container,
-.rules {
+.container {
     -fx-min-width: 18.75em;
     -fx-min-height: 22.5em;
     -fx-max-width: 20em;
@@ -42,6 +41,7 @@
     -fx-margin: 0.2em 0;
 }
 .title {
+    -fx-position: absolute;
     -fx-font-size: 2em;
     -fx-min-width: 1.7em;
     -fx-max-width: 2.3em;
@@ -50,9 +50,10 @@
     -fx-font-weight: 600;
 }
 .input-box {
+    -fx-control-inner-background: #121213ff;
     -fx-display-caret: false;
     -fx-font-size: 2em;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #f8f8f8;
     -fx-min-width: 1.7em;
     -fx-max-width: 2.3em;
     -fx-min-height: 1.7em;
@@ -62,28 +63,6 @@
     -fx-font-weight: 600;
     -fx-text-transform: uppercase;
 }
-.input-box:disabled {
-    -fx-text-fill: #000000;
-}
-
-.correct {
-    -fx-background-color: #6aaa64;
-}
-
-.exists {
-    -fx-background-color: #c9b458;
-}
-
-.incorrect {
-    -fx-background-color: #787c7e;
-}
-
-.correct,
-.exists,
-.incorrect {
-    -fx-text-fill: #ffffff;
-}
-
 .win-screen {
     -fx-font-weight: 400;
     -fx-position: absolute;
