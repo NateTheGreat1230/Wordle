@@ -114,32 +114,32 @@ public class WordleController {
         setCurrent(Guess1L1);
         Guess1L2.setFocusTraversable(false);
         Guess1L1.requestFocus();
-        addLimiterAndListener(Guess1L1);
+        addLimiterAndListenerFirst(Guess1L1);
         addLimiterAndListener(Guess1L2);
         addLimiterAndListener(Guess1L3);
         addLimiterAndListener(Guess1L4);
         addLimiterAndListenerLast(Guess1L5);
-        addLimiterAndListener(Guess2L1);
+        addLimiterAndListenerFirst(Guess2L1);
         addLimiterAndListener(Guess2L2);
         addLimiterAndListener(Guess2L3);
         addLimiterAndListener(Guess2L4);
         addLimiterAndListenerLast(Guess2L5);
-        addLimiterAndListener(Guess3L1);
+        addLimiterAndListenerFirst(Guess3L1);
         addLimiterAndListener(Guess3L2);
         addLimiterAndListener(Guess3L3);
         addLimiterAndListener(Guess3L4);
         addLimiterAndListenerLast(Guess3L5);
-        addLimiterAndListener(Guess4L1);
+        addLimiterAndListenerFirst(Guess4L1);
         addLimiterAndListener(Guess4L2);
         addLimiterAndListener(Guess4L3);
         addLimiterAndListener(Guess4L4);
         addLimiterAndListenerLast(Guess4L5);
-        addLimiterAndListener(Guess5L1);
+        addLimiterAndListenerFirst(Guess5L1);
         addLimiterAndListener(Guess5L2);
         addLimiterAndListener(Guess5L3);
         addLimiterAndListener(Guess5L4);
         addLimiterAndListenerLast(Guess5L5);
-        addLimiterAndListener(Guess6L1);
+        addLimiterAndListenerFirst(Guess6L1);
         addLimiterAndListener(Guess6L2);
         addLimiterAndListener(Guess6L3);
         addLimiterAndListener(Guess6L4);
@@ -203,6 +203,7 @@ public class WordleController {
     }
     public void addLimiterAndListenerLast(final TextField tf) {
         KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
+        KeyCombination tabPressed = new KeyCodeCombination(KeyCode.TAB);
         KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
         tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -215,13 +216,7 @@ public class WordleController {
             public void handle(KeyEvent event) {
                 if(backspacePressed.match(event)){
                     errorSpot.setText("");
-                    Robot robot = new Robot();
-                    robot.keyPress(KeyCode.SHIFT);
-                    robot.keyPress(KeyCode.TAB);
-                    robot.keyRelease(KeyCode.TAB);
-                    robot.keyRelease(KeyCode.SHIFT);
-                    robot.keyPress(KeyCode.BACK_SPACE);
-                    robot.keyPress(KeyCode.BACK_SPACE);
+                    traverseBackward();
                 }
                 if(enterPressed.match(event)){
                     errorSpot.setText("");
@@ -230,15 +225,15 @@ public class WordleController {
                         if (logic.inList(guess) == true) {
                             String[] checked = logic.checkWord(guess);
                             setColors(checked);
-                            Robot robot = new Robot();
-                            robot.keyPress(KeyCode.TAB);
-                            robot.keyRelease(KeyCode.TAB);
+                            traverseForward();
                         } else {
                             errorSpot.setText("Not in word list.");
                         }
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
+                } if (tabPressed.match(event)) {
+                    current.requestFocus();
                 }
             }
         });
@@ -266,21 +261,47 @@ public class WordleController {
             public void handle(KeyEvent event) {
                 if (backspacePressed.match(event)) {
                     traverseBackward();
-//                    Robot robot = new Robot();
-//                    robot.keyPress(KeyCode.BACK_SPACE);
-//                    robot.keyPress(KeyCode.BACK_SPACE);
-//                    robot.keyPress(KeyCode.SHIFT);
-//                    robot.keyPress(KeyCode.TAB);
-//                    robot.keyRelease(KeyCode.TAB);
-//                    robot.keyRelease(KeyCode.SHIFT);
-//                    robot.keyPress(KeyCode.BACK_SPACE);
-//                    robot.keyPress(KeyCode.BACK_SPACE);
                 }
                 if(enterPressed.match(event)) {
                     errorSpot.setText("Not enough Letters");
                 }
                 if (tabPressed.match(event)) {
-                    System.out.println("TAB~!!!!!");
+                    current.requestFocus();
+                }
+
+            }
+        });
+        final int maxLength = 1;
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            } else {
+                traverseForward();
+            }
+        });
+    }
+    public void addLimiterAndListenerFirst(final TextField tf) {
+        KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
+        KeyCombination tabPressed = new KeyCodeCombination(KeyCode.TAB);
+        KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
+        tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                current.requestFocus();
+            }
+        });
+        tf.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (backspacePressed.match(event)) {
+                    current.requestFocus();
+                }
+                if(enterPressed.match(event)) {
+                    errorSpot.setText("Not enough Letters");
+                }
+                if (tabPressed.match(event)) {
+                    current.requestFocus();
                 }
 
             }
