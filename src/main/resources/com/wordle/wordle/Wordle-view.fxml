@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Text?>
 <BorderPane stylesheets="Wordle.css" styleClass="root, body" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wordle.wordle.WordleController">
     <top>
-        <VBox>
+        <VBox styleClass="centerThis">
             <Text text="Wordle" styleClass="title"/>
-            <Label fx:id="errorSpot"/>
+            <Label fx:id="errorSpot" styleClass="txtStyle"/>
         </VBox>
     </top>
     <center>
@@ -64,9 +64,9 @@
         </GridPane>
     </center>
     <bottom>
-        <VBox>
-            <Label fx:id="answer"/>
-            <Button text="Get Guess" onAction="#onGetGuessClick"/>
+        <VBox styleClass="centerThis">
+            <Label fx:id="answer" styleClass="txtStyle"/>
+            <Button text="Get Guess" onAction="#onGetGuessClick" styleClass="win-button"/>
         </VBox>
     </bottom>
 </BorderPane>

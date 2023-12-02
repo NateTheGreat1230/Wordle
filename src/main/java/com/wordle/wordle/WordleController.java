@@ -1,5 +1,6 @@
 package com.wordle.wordle;
 
+import javafx.scene.control.Button;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -338,6 +339,7 @@ public class WordleController {
     @FXML
     protected void onGetGuessClick() {
         answer.setText(logic.getGuess());
+        current.requestFocus();
     }
     public void setColors(String[] guess) {
         switch (logic.guessNum) {
@@ -394,14 +396,29 @@ public class WordleController {
     }
     public void checkWin(String[] guess) {
         if (Arrays.equals(guess, new String[]{"true", "true", "true", "true", "true"})) {
-            Label label = new Label("you win!");
+            Label label = new Label("You win! You guessed it in " + logic.guessNum + " tries!");
             Popup popup = new Popup();
-            label.setStyle("-fx-background-color: white;");
-            popup.getContent().add(label);
+            VBox vbox = new VBox();
+            Button button = new Button("Play Again");
+            button.getStyleClass().addAll("win-button");
+            label.getStyleClass().addAll("win-label");
+            vbox.getStyleClass().addAll("win-screen");
+            vbox.getChildren().add(label);
+            vbox.getChildren().add(button);
+            popup.getContent().add(vbox);
             label.setMinWidth(80);
             label.setMinHeight(50);
             Window window = Guess1L4.getScene().getWindow();
             popup.show(window);
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    clearBoard();
+                    logic.setWord();
+                    logic.guessNum = 0;
+                    popup.hide();
+                }
+            });
         }
     }
     public void setCurrent(TextField tf) {
@@ -462,5 +479,14 @@ public class WordleController {
         robot.keyPress(KeyCode.DELETE);
         robot.keyRelease(KeyCode.DELETE);
         return prev;
+    }
+    public void clearBoard() {
+        for (TextField boxes : textBoxes) {
+            boxes.clear();
+            boxes.setStyle("-fx-control-inner-background: #121213ff");
+        }
+        current = textBoxes.get(0);
+        current.requestFocus();
+        errorSpot.setText("");
     }
 }

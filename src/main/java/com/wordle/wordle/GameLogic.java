@@ -36,7 +36,7 @@ public class GameLogic {
         try{
             String line = Files.readAllLines(Paths.get("src/main/resources/com/wordle/wordle/answers.txt")).get(lineNumber);
             word = line;
-            System.out.println(line);
+            //System.out.println(line);
         }
         catch(IOException e){
             System.out.println(e);
