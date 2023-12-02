@@ -227,8 +227,16 @@ public class WordleController {
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText().toUpperCase();
-            tf.setText(str);
+            String str = tf.getText();
+            if (str.matches("[a-zA-Z]")) {
+                tf.setText(str.toUpperCase());
+                errorSpot.setText("");
+            } else if (str.matches("[\b]")) {
+                errorSpot.setText("");
+            } else {
+                errorSpot.setText("Not a valid input");
+                current.clear();
+            }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
@@ -251,20 +259,29 @@ public class WordleController {
             public void handle(KeyEvent event) {
                 if (backspacePressed.match(event)) {
                     traverseBackward();
+                    errorSpot.setText("");
                 }
                 if(enterPressed.match(event)) {
                     errorSpot.setText("Not enough Letters");
                 }
                 if (tabPressed.match(event)) {
                     current.requestFocus();
+                    errorSpot.setText("");
                 }
-
             }
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText().toUpperCase();
-            tf.setText(str);
+            String str = tf.getText();
+            if (str.matches("[a-zA-Z]")) {
+                tf.setText(str.toUpperCase());
+                errorSpot.setText("");
+            } else if (str.matches("[\b]")) {
+                errorSpot.setText("");
+            } else {
+                errorSpot.setText("Not a valid input");
+                current.clear();
+            }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
@@ -300,8 +317,16 @@ public class WordleController {
         });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText().toUpperCase();
-            tf.setText(str);
+            String str = tf.getText();
+            if (str.matches("[a-zA-Z]")) {
+                tf.setText(str.toUpperCase());
+                errorSpot.setText("");
+            } else if (str.matches("[\b]")) {
+                errorSpot.setText("");
+            } else {
+                errorSpot.setText("Not a valid input");
+                current.clear();
+            }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
