@@ -1,5 +1,9 @@
 package com.wordle.wordle;
 
+import javafx.scene.input.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
@@ -11,40 +15,35 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.TextFieldSkin;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.robot.Robot;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class WordleController {
+    public VBox grid;
     GameLogic logic = new GameLogic();
-    //null = logic.setWord();
     String word = logic.getWord();
-    //int scoreNum;
-
+    ArrayList<TextField> textBoxes = new ArrayList<>();
+    @FXML
+    private HBox guess1;
+    @FXML
+    private HBox guess2;
+    @FXML
+    private HBox guess3;
+    @FXML
+    private HBox guess4;
+    @FXML
+    private HBox guess5;
+    @FXML
+    private HBox guess6;
     @FXML
     private Label answer;
-//    @FXML
-//    private Label right1;
-//    @FXML
-//    private Label right2;
-//    @FXML
-//    private Label right3;
-//    @FXML
-//    private Label right4;
-//    @FXML
-//    private Label right5;
-//    @FXML
-//    private Label right6;
     @FXML
     private Label score;
     @FXML
@@ -109,12 +108,11 @@ public class WordleController {
     private TextField Guess6L4;
     @FXML
     private TextField Guess6L5;
-
-    @FXML
-    protected void onStartClick() {
-        addEventListeners();
-    }
+    TextField current = Guess1L1;
     protected void addEventListeners() {
+        makeListSwitch();
+        setCurrent(Guess1L1);
+        Guess1L2.setFocusTraversable(false);
         Guess1L1.requestFocus();
         addLimiterAndListener(Guess1L1);
         addLimiterAndListener(Guess1L2);
@@ -206,6 +204,12 @@ public class WordleController {
     public void addLimiterAndListenerLast(final TextField tf) {
         KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
         KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
+        tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                current.requestFocus();
+            }
+        });
         tf.setOnKeyPressed(new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent event) {
@@ -248,21 +252,37 @@ public class WordleController {
 
     }
     public void addLimiterAndListener(final TextField tf) {
+        KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
+        KeyCombination tabPressed = new KeyCodeCombination(KeyCode.TAB);
         KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
+        tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                current.requestFocus();
+            }
+        });
         tf.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (backspacePressed.match(event)) {
-                    Robot robot = new Robot();
-                    robot.keyPress(KeyCode.BACK_SPACE);
-                    robot.keyPress(KeyCode.BACK_SPACE);
-                    robot.keyPress(KeyCode.SHIFT);
-                    robot.keyPress(KeyCode.TAB);
-                    robot.keyRelease(KeyCode.TAB);
-                    robot.keyRelease(KeyCode.SHIFT);
-                    robot.keyPress(KeyCode.BACK_SPACE);
-                    robot.keyPress(KeyCode.BACK_SPACE);
+                    traverseBackward();
+//                    Robot robot = new Robot();
+//                    robot.keyPress(KeyCode.BACK_SPACE);
+//                    robot.keyPress(KeyCode.BACK_SPACE);
+//                    robot.keyPress(KeyCode.SHIFT);
+//                    robot.keyPress(KeyCode.TAB);
+//                    robot.keyRelease(KeyCode.TAB);
+//                    robot.keyRelease(KeyCode.SHIFT);
+//                    robot.keyPress(KeyCode.BACK_SPACE);
+//                    robot.keyPress(KeyCode.BACK_SPACE);
                 }
+                if(enterPressed.match(event)) {
+                    errorSpot.setText("Not enough Letters");
+                }
+                if (tabPressed.match(event)) {
+                    System.out.println("TAB~!!!!!");
+                }
+
             }
         });
         final int maxLength = 1;
@@ -270,12 +290,9 @@ public class WordleController {
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
+            } else {
+                traverseForward();
             }
-        });
-        tf.textProperty().addListener((observable, oldValue, newValue) -> {
-            Robot robot = new Robot();
-            robot.keyPress(KeyCode.TAB);
-            robot.keyRelease(KeyCode.TAB);
         });
     }
     @FXML
@@ -353,5 +370,64 @@ public class WordleController {
             popup.show(window);
             //popup.show((Window) Stage.getWindows().stream().filter(Window::isShowing));
         }
+    }
+    public void setCurrent(TextField tf) {
+        current = tf;
+    }
+    public void makeListSwitch() {
+        for (int i = 0; i < 6; i++) {
+            switch (i) {
+                case 0: {
+                    TextField[] tf = new TextField[]{Guess1L1, Guess1L2, Guess1L3, Guess1L4, Guess1L5};
+                    makeList(tf);
+                    break;
+                } case 1: {
+                    TextField[] tf = new TextField[]{Guess2L1, Guess2L2, Guess2L3, Guess2L4, Guess2L5};
+                    makeList(tf);
+                    break;
+                } case 2: {
+                    TextField[] tf = new TextField[]{Guess3L1, Guess3L2, Guess3L3, Guess3L4, Guess3L5};
+                    makeList(tf);
+                    break;
+                } case 3: {
+                    TextField[] tf = new TextField[]{Guess4L1, Guess4L2, Guess4L3, Guess4L4, Guess4L5};
+                    makeList(tf);
+                    break;
+                } case 4: {
+                    TextField[] tf = new TextField[]{Guess5L1, Guess5L2, Guess5L3, Guess5L4, Guess5L5};
+                    makeList(tf);
+                    break;
+                } case 5: {
+                    TextField[] tf = new TextField[]{Guess6L1, Guess6L2, Guess6L3, Guess6L4, Guess6L5};
+                    makeList(tf);
+                    break;
+                }
+            }
+        }
+    }
+    public void makeList(TextField[] textFields) {
+        for (TextField textField : textFields) {
+            textBoxes.add(textField);
+        }
+    }
+    public TextField traverseForward() {
+        int theCurrent = textBoxes.indexOf(current);
+        if (!current.getText().equals("")) {
+            TextField next = textBoxes.get(theCurrent+1);
+            current = next;
+            current.requestFocus();
+            return next;
+        }
+        return current;
+    }
+    public TextField traverseBackward() {
+        int theCurrent = textBoxes.indexOf(current);
+        TextField prev = textBoxes.get(theCurrent-1);
+        current = prev;
+        current.requestFocus();
+        Robot robot = new Robot();
+        robot.keyPress(KeyCode.DELETE);
+        robot.keyRelease(KeyCode.DELETE);
+        return prev;
     }
 }

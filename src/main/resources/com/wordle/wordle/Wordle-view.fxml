@@ -17,7 +17,7 @@
     </top>
     <center>
         <GridPane styleClass="wrapper">
-            <VBox styleClass="container">
+            <VBox styleClass="container" fx:id="grid">
                 <HBox styleClass="input-group" fx:id="guess1">
                     <TextField fx:id="Guess1L1" styleClass="input-box"/>
                     <TextField fx:id="Guess1L2" styleClass="input-box"/>
@@ -25,35 +25,35 @@
                     <TextField fx:id="Guess1L4" styleClass="input-box"/>
                     <TextField fx:id="Guess1L5" styleClass="input-box"/>
                 </HBox>
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess2">
                     <TextField fx:id="Guess2L1" styleClass="input-box"/>
                     <TextField fx:id="Guess2L2" styleClass="input-box"/>
                     <TextField fx:id="Guess2L3" styleClass="input-box"/>
                     <TextField fx:id="Guess2L4" styleClass="input-box"/>
                     <TextField fx:id="Guess2L5" styleClass="input-box"/>
                 </HBox>
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess3">
                     <TextField fx:id="Guess3L1" styleClass="input-box"/>
                     <TextField fx:id="Guess3L2" styleClass="input-box"/>
                     <TextField fx:id="Guess3L3" styleClass="input-box"/>
                     <TextField fx:id="Guess3L4" styleClass="input-box"/>
                     <TextField fx:id="Guess3L5" styleClass="input-box"/>
                 </HBox>
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess4">
                     <TextField fx:id="Guess4L1" styleClass="input-box"/>
                     <TextField fx:id="Guess4L2" styleClass="input-box"/>
                     <TextField fx:id="Guess4L3" styleClass="input-box"/>
                     <TextField fx:id="Guess4L4" styleClass="input-box"/>
                     <TextField fx:id="Guess4L5" styleClass="input-box"/>
                 </HBox>
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess5">
                     <TextField fx:id="Guess5L1" styleClass="input-box"/>
                     <TextField fx:id="Guess5L2" styleClass="input-box"/>
                     <TextField fx:id="Guess5L3" styleClass="input-box"/>
                     <TextField fx:id="Guess5L4" styleClass="input-box"/>
                     <TextField fx:id="Guess5L5" styleClass="input-box"/>
                 </HBox>
-                <HBox styleClass="input-group">
+                <HBox styleClass="input-group" fx:id="guess6">
                     <TextField fx:id="Guess6L1" styleClass="input-box"/>
                     <TextField fx:id="Guess6L2" styleClass="input-box"/>
                     <TextField fx:id="Guess6L3" styleClass="input-box"/>
