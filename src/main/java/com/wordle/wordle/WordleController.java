@@ -212,6 +212,7 @@ public class WordleController {
                         if (logic.inList(guess) == true) {
                             String[] checked = logic.checkWord(guess);
                             setColors(checked);
+                            looseScreen(checked);
                             if (textBoxes.indexOf(current)+1 != textBoxes.size()) {
                                 traverseForward();
                             }
@@ -226,6 +227,23 @@ public class WordleController {
                 }
             }
         });
+//        final int maxLength = 1;
+//        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+//            String str = tf.getText();
+//            if (str.matches("[a-zA-Z]")) {
+//                tf.setText(str.toUpperCase());
+//                errorSpot.setText("");
+//            } else if (str.matches("[\b]")) {
+//                errorSpot.setText("");
+//            } else {
+//                errorSpot.setText("Not a valid input");
+//                current.clear();
+//            }
+//            if (tf.getText().length() > maxLength) {
+//                String s = tf.getText().substring(0, maxLength);
+//                tf.setText(s);
+//            }
+//        });
         final int maxLength = 1;
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
             String str = tf.getText();
@@ -243,7 +261,6 @@ public class WordleController {
                 tf.setText(s);
             }
         });
-
     }
     public void addLimiterAndListener(final TextField tf) {
         KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
@@ -400,11 +417,14 @@ public class WordleController {
             Popup popup = new Popup();
             VBox vbox = new VBox();
             Button button = new Button("Play Again");
+            Button button1 = new Button("Close");
             button.getStyleClass().addAll("win-button");
+            button1.getStyleClass().addAll("win-button");
             label.getStyleClass().addAll("win-label");
             vbox.getStyleClass().addAll("win-screen");
             vbox.getChildren().add(label);
             vbox.getChildren().add(button);
+            vbox.getChildren().add(button1);
             popup.getContent().add(vbox);
             label.setMinWidth(80);
             label.setMinHeight(50);
@@ -416,6 +436,48 @@ public class WordleController {
                     clearBoard();
                     logic.setWord();
                     logic.guessNum = 0;
+                    popup.hide();
+                }
+            });
+            button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    popup.hide();
+                }
+            });
+        }
+    }
+    public void looseScreen(String[] guess) {
+        if (logic.guessNum == 6 && !Arrays.equals(guess, new String[]{"true", "true", "true", "true", "true"})) {
+            Label label = new Label("You loose. The word was " + logic.getWord());
+            Popup popup = new Popup();
+            VBox vbox = new VBox();
+            Button button = new Button("Play Again");
+            Button button1 = new Button("Close");
+            button.getStyleClass().addAll("win-button");
+            button1.getStyleClass().addAll("win-button");
+            label.getStyleClass().addAll("win-label");
+            vbox.getStyleClass().addAll("win-screen");
+            vbox.getChildren().add(label);
+            vbox.getChildren().add(button);
+            vbox.getChildren().add(button1);
+            popup.getContent().add(vbox);
+            label.setMinWidth(80);
+            label.setMinHeight(50);
+            Window window = Guess1L4.getScene().getWindow();
+            popup.show(window);
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    clearBoard();
+                    logic.setWord();
+                    logic.guessNum = 0;
+                    popup.hide();
+                }
+            });
+            button1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
                     popup.hide();
                 }
             });
@@ -471,14 +533,19 @@ public class WordleController {
         return current;
     }
     public TextField traverseBackward() {
-        int theCurrent = textBoxes.indexOf(current);
-        TextField prev = textBoxes.get(theCurrent-1);
-        current = prev;
-        current.requestFocus();
-        Robot robot = new Robot();
-        robot.keyPress(KeyCode.DELETE);
-        robot.keyRelease(KeyCode.DELETE);
-        return prev;
+        if (current.getText().equals("")) {
+            int theCurrent = textBoxes.indexOf(current);
+            TextField prev = textBoxes.get(theCurrent-1);
+            current = prev;
+            current.requestFocus();
+            Robot robot = new Robot();
+            robot.keyPress(KeyCode.DELETE);
+            robot.keyRelease(KeyCode.DELETE);
+            return prev;
+        } else {
+            current.setText("");
+            return current;
+        }
     }
     public void clearBoard() {
         for (TextField boxes : textBoxes) {
