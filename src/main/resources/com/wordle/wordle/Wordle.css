@@ -87,6 +87,13 @@
     -fx-text-fill: #f8f8f8;
     -fx-border-radius: 2em;
 }
+.alphabet-button {
+    -fx-min-width: 2.2em;
+    -fx-font-size: 1.2em;
+    -fx-background-color: #121213ff;
+    -fx-text-fill: #f8f8f8;
+    -fx-border-radius: 2em;
+}
 .win-label {
     -fx-text-fill: #f8f8f8;
     -fx-font-size: 1.2em;

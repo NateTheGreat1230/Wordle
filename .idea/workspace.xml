@@ -7,7 +7,8 @@
     <list default="true" id="9970e68f-8256-4d08-bcb9-3576e086489a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wordle/wordle/WordleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wordle/wordle/WordleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/answers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/answers.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/Wordle-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/Wordle-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/Wordle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/wordle/wordle/Wordle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

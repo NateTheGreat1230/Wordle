@@ -15,6 +15,57 @@
             <Label fx:id="errorSpot" styleClass="txtStyle"/>
         </VBox>
     </top>
+    <left>
+        <VBox>
+            <Button text="Restart" onAction="#restartGameBTN" styleClass="win-button"/>
+        </VBox>
+    </left>
+    <right>
+        <VBox>
+            <HBox>
+                <Button text="A" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="B" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="C" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="D" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="E" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="F" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="G" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="H" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="I" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="J" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="K" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="L" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="M" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="N" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="O" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="P" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="Q" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="R" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="S" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="T" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="U" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="V" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="W" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="X" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+            <HBox>
+                <Button text="Y" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="Z" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="↵" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+                <Button text="←" styleClass="alphabet-button" onAction="#onAlphabetClick"/>
+            </HBox>
+        </VBox>
+    </right>
     <center>
         <GridPane styleClass="wrapper">
             <VBox styleClass="container">

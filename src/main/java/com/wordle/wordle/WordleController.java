@@ -517,6 +517,20 @@ public class WordleController {
             }
         }
     }
+    @FXML
+    protected void restartGameBTN() {
+        clearBoard();
+        logic.setWord();
+        logic.guessNum = 0;
+    }
+//    public void onAlphabetClick() {
+//
+//        .getText();
+//        //click(this);
+//    }
+//    public void click(Button button) {
+//
+//    }
     public void makeList(TextField[] textFields) {
         for (TextField textField : textFields) {
             textBoxes.add(textField);
