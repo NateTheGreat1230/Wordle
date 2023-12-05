@@ -13,7 +13,7 @@ public class WordleApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(WordleApp.class.getResource("Wordle-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 800);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Wordle.css")).toExternalForm());
         stage.getIcons().add(new Image(Objects.requireNonNull(WordleApp.class.getResourceAsStream("favicon.png"))));
         stage.setTitle("Wordle Game");

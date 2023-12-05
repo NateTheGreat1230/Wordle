@@ -145,70 +145,47 @@ public class WordleController {
         KeyCombination enterPressed = new KeyCodeCombination(KeyCode.ENTER);
         KeyCombination tabPressed = new KeyCodeCombination(KeyCode.TAB);
         KeyCombination backspacePressed = new KeyCodeCombination(KeyCode.BACK_SPACE);
-        String tfText = tf.getText();
-        tf.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
+        tf.setOnMouseClicked(mouseEvent -> current.requestFocus());
+        tf.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (backspacePressed.match(event)) {
+                event.consume();
+                errorSpot.setText("");
+                if (current.getText().equals("")) {
+                    traverseBackward();
+                    current.requestFocus();
+                } else {
+                    current.setText("");
+                    current.requestFocus();
+                }
+            } else if (enterPressed.match(event)) {
+                errorSpot.setText("");
+                String guess = makeString();
+                try {
+                    if (logic.inList(guess)) {
+                        String[] checked = logic.checkWord(guess);
+                        setColors(checked);
+                        looseScreen(checked);
+                        if (textBoxes.indexOf(current) + 1 != textBoxes.size()) {
+                            traverseForward();
+                        }
+                    } else {
+                        errorSpot.setText("Not in word list.");
+                    }
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (tabPressed.match(event)) {
                 current.requestFocus();
             }
         });
-        tf.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent event) {
-                if(backspacePressed.match(event)){
-                    errorSpot.setText("");
-                    traverseBackward();
-                }
-                if(enterPressed.match(event)){
-                    errorSpot.setText("");
-                    String guess = makeString();
-                    try {
-                        if (logic.inList(guess) == true) {
-                            String[] checked = logic.checkWord(guess);
-                            setColors(checked);
-                            looseScreen(checked);
-                            if (textBoxes.indexOf(current)+1 != textBoxes.size()) {
-                                traverseForward();
-                            }
-                        } else {
-                            errorSpot.setText("Not in word list.");
-                        }
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                } if (tabPressed.match(event)) {
-                    current.requestFocus();
-                }
-            }
-        });
-//        final int maxLength = 1;
-//        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-//            String str = tf.getText();
-//            if (str.matches("[a-zA-Z]")) {
-//                tf.setText(str.toUpperCase());
-//                errorSpot.setText("");
-//            } else if (str.matches("[\b]")) {
-//                errorSpot.setText("");
-//            } else {
-//                errorSpot.setText("Not a valid input");
-//                current.clear();
-//            }
-//            if (tf.getText().length() > maxLength) {
-//                String s = tf.getText().substring(0, maxLength);
-//                tf.setText(s);
-//            }
-//        });
         final int maxLength = 1;
-        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText();
-            if (str.matches("[a-zA-Z]")) {
-                tf.setText(str.toUpperCase());
-                errorSpot.setText("");
-            } else if (str.matches("[\b]")) {
-                errorSpot.setText("");
-            } else {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]*")) {
+                tf.setText(oldValue);
                 errorSpot.setText("Not a valid input");
-                current.clear();
+            } else {
+                tf.setText(newValue.toUpperCase());
+                errorSpot.setText("");
             }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
@@ -243,22 +220,18 @@ public class WordleController {
             }
         });
         final int maxLength = 1;
-        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText();
-            if (str.matches("[a-zA-Z]")) {
-                tf.setText(str.toUpperCase());
-                errorSpot.setText("");
-            } else if (str.matches("[\b]")) {
-                errorSpot.setText("");
-            } else {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]*")) {
+                tf.setText(oldValue);
                 errorSpot.setText("Not a valid input");
-                current.clear();
+            } else {
+                errorSpot.setText("");
+                tf.setText(newValue.toUpperCase());
+                traverseForward();
             }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
-            } else {
-                traverseForward();
             }
         });
     }
@@ -288,22 +261,18 @@ public class WordleController {
             }
         });
         final int maxLength = 1;
-        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            String str = tf.getText();
-            if (str.matches("[a-zA-Z]")) {
-                tf.setText(str.toUpperCase());
-                errorSpot.setText("");
-            } else if (str.matches("[\b]")) {
-                errorSpot.setText("");
-            } else {
+        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]*")) {
+                tf.setText(oldValue);
                 errorSpot.setText("Not a valid input");
-                current.clear();
+            } else {
+                errorSpot.setText("");
+                tf.setText(newValue.toUpperCase());
+                traverseForward();
             }
             if (tf.getText().length() > maxLength) {
                 String s = tf.getText().substring(0, maxLength);
                 tf.setText(s);
-            } else {
-                traverseForward();
             }
         });
     }
@@ -543,6 +512,9 @@ public class WordleController {
             boxes.clear();
             boxes.setStyle("-fx-control-inner-background: #121213ff");
         }
+        for (Button eachbutton : buttons) {
+            eachbutton.setStyle("-fx-background-color: #121213ff;");
+        }
         current = textBoxes.get(0);
         current.requestFocus();
         errorSpot.setText("");
@@ -556,12 +528,29 @@ public class WordleController {
     }
     @FXML
     protected void onAlphabetClickDEL() {
-        if (current.getText().equals("") ) {
-            traverseBackward();
-            current.requestFocus();
+        errorSpot.setText("");
+        List<TextField> firstList = new ArrayList<>();
+        firstList.add(Guess1L1);
+        firstList.add(Guess2L1);
+        firstList.add(Guess3L1);
+        firstList.add(Guess4L1);
+        firstList.add(Guess5L1);
+        firstList.add(Guess6L1);
+        if (firstList.get(logic.guessNum).equals(current)) {
+            if (!current.getText().equals("")) {
+                current.setText("");
+                current.requestFocus();
+            } else {
+                current.requestFocus();
+            }
         } else {
-            current.setText("");
-            current.requestFocus();
+            if (current.getText().equals("")) {
+                traverseBackward();
+                current.requestFocus();
+            } else {
+                current.setText("");
+                current.requestFocus();
+            }
         }
     }
     @FXML
