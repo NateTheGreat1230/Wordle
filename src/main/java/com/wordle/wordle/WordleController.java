@@ -160,22 +160,26 @@ public class WordleController {
             } else if (enterPressed.match(event)) {
                 errorSpot.setText("");
                 String guess = makeString();
-                try {
-                    if (logic.inList(guess)) {
-                        String[] checked = logic.checkWord(guess);
-                        setColors(checked);
-                        looseScreen(checked);
-                        if (textBoxes.indexOf(current) + 1 != textBoxes.size()) {
-                            traverseForward();
+                if (!current.getText().equals("")) {
+                    try {
+                        if (logic.inList(guess)) {
+                            String[] checked = logic.checkWord(guess);
+                            setColors(checked);
+                            looseScreen(checked);
+                            if (textBoxes.indexOf(current) + 1 != textBoxes.size()) {
+                                traverseForward();
+                            }
+                        } else {
+                            errorSpot.setText("Not in word list.");
                         }
-                    } else {
-                        errorSpot.setText("Not in word list.");
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
                     }
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+                } else if (tabPressed.match(event)) {
+                    current.requestFocus();
                 }
-            } else if (tabPressed.match(event)) {
-                current.requestFocus();
+            } else {
+                errorSpot.setText("Not enough letters.");
             }
         });
         final int maxLength = 1;
