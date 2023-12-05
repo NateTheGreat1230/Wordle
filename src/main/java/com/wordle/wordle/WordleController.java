@@ -1,5 +1,6 @@
 package com.wordle.wordle;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -29,75 +30,28 @@ public class WordleController {
     GameLogic logic = new GameLogic();
     String word = logic.getWord();
     ArrayList<TextField> textBoxes = new ArrayList<>();
+    ArrayList<Button> buttons = new ArrayList<>();
+    HashMap<Button, String> alphaHashMap = new HashMap<>();
     @FXML
     private Label answer;
     @FXML
     private Label score;
     @FXML
     private Label errorSpot;
-    @FXML
-    private TextField Guess1L1;
-    @FXML
-    private TextField Guess1L2;
-    @FXML
-    private TextField Guess1L3;
-    @FXML
-    private TextField Guess1L4;
-    @FXML
-    private TextField Guess1L5;
-    @FXML
-    private TextField Guess2L1;
-    @FXML
-    private TextField Guess2L2;
-    @FXML
-    private TextField Guess2L3;
-    @FXML
-    private TextField Guess2L4;
-    @FXML
-    private TextField Guess2L5;
-    @FXML
-    private TextField Guess3L1;
-    @FXML
-    private TextField Guess3L2;
-    @FXML
-    private TextField Guess3L3;
-    @FXML
-    private TextField Guess3L4;
-    @FXML
-    private TextField Guess3L5;
-    @FXML
-    private TextField Guess4L1;
-    @FXML
-    private TextField Guess4L2;
-    @FXML
-    private TextField Guess4L3;
-    @FXML
-    private TextField Guess4L4;
-    @FXML
-    private TextField Guess4L5;
-    @FXML
-    private TextField Guess5L1;
-    @FXML
-    private TextField Guess5L2;
-    @FXML
-    private TextField Guess5L3;
-    @FXML
-    private TextField Guess5L4;
-    @FXML
-    private TextField Guess5L5;
-    @FXML
-    private TextField Guess6L1;
-    @FXML
-    private TextField Guess6L2;
-    @FXML
-    private TextField Guess6L3;
-    @FXML
-    private TextField Guess6L4;
-    @FXML
-    private TextField Guess6L5;
+    @FXML private TextField
+            Guess1L1, Guess1L2, Guess1L3, Guess1L4, Guess1L5,
+            Guess2L1, Guess2L2, Guess2L3, Guess2L4, Guess2L5,
+            Guess3L1, Guess3L2, Guess3L3, Guess3L4, Guess3L5,
+            Guess4L1, Guess4L2, Guess4L3, Guess4L4, Guess4L5,
+            Guess5L1, Guess5L2, Guess5L3, Guess5L4, Guess5L5,
+            Guess6L1, Guess6L2, Guess6L3, Guess6L4, Guess6L5;
+    @FXML private Button btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ,
+            btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT,
+            btnU, btnV, btnW, btnX, btnY, btnZ, btnENT, btnDEL;
     TextField current = Guess1L1;
     protected void addEventListeners() {
         makeListSwitch();
+        makeAlphaList();
         setCurrent(Guess1L1);
         Guess1L1.requestFocus();
         addLimiterAndListenerFirst(Guess1L1);
@@ -400,6 +354,7 @@ public class WordleController {
         }
         for (Map.Entry<TextField, String> entry : map.entrySet()) {
             setColors(entry.getKey(), entry.getValue());
+            setAlphaColors(entry.getKey().getText(), entry.getValue());
         }
     }
     public void setColors(TextField tf, String letter) {
@@ -409,6 +364,21 @@ public class WordleController {
             tf.setStyle("-fx-control-inner-background: #3a3a3cff");
         } else if (letter.equals("contains")) {
             tf.setStyle("-fx-control-inner-background: #b59f3bff");
+        }
+    }
+    public void setAlphaColors(String tfLetter, String letter) {
+        Button button = new Button();
+        for (Map.Entry<Button, String> entry : alphaHashMap.entrySet()) {
+            if (entry.getValue().equals(tfLetter)) {
+                button = entry.getKey();
+            }
+        }
+        if (letter.equals("true")) {
+            button.setStyle("-fx-background-color: #538d4eff");
+        } else if (letter.equals("false")) {
+            button.setStyle("-fx-background-color: #3a3a3cff");
+        } else if (letter.equals("contains")) {
+            button.setStyle("-fx-background-color: #b59f3bff");
         }
     }
     public void checkWin(String[] guess) {
@@ -523,17 +493,24 @@ public class WordleController {
         logic.setWord();
         logic.guessNum = 0;
     }
-//    public void onAlphabetClick() {
-//
-//        .getText();
-//        //click(this);
-//    }
-//    public void click(Button button) {
-//
-//    }
     public void makeList(TextField[] textFields) {
         for (TextField textField : textFields) {
             textBoxes.add(textField);
+        }
+    }
+    public void makeAlphaList() {
+        Button[] buttonList = {
+                btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ,
+                btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT,
+                btnU, btnV, btnW, btnX, btnY, btnZ
+        };
+        char currentLetter = 'A';
+        for (Button button : buttonList) {
+            alphaHashMap.put(button, String.valueOf(currentLetter));
+            currentLetter++;
+        }
+        for (Button theCurrentButton : buttonList) {
+            buttons.add(theCurrentButton);
         }
     }
     public TextField traverseForward() {
@@ -569,5 +546,29 @@ public class WordleController {
         current = textBoxes.get(0);
         current.requestFocus();
         errorSpot.setText("");
+    }
+    @FXML
+    protected void onAlphabetClick(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        String buttonText = clickedButton.getText();
+        current.setText(buttonText);
+        current.requestFocus();
+    }
+    @FXML
+    protected void onAlphabetClickDEL() {
+        if (current.getText().equals("") ) {
+            traverseBackward();
+            current.requestFocus();
+        } else {
+            current.setText("");
+            current.requestFocus();
+        }
+    }
+    @FXML
+    protected void onAlphabetClickENT() {
+        current.requestFocus();
+        Robot robot = new Robot();
+        robot.keyPress(KeyCode.ENTER);
+        robot.keyRelease(KeyCode.ENTER);
     }
 }
