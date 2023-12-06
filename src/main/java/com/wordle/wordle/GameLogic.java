@@ -36,7 +36,7 @@ public class GameLogic {
         try{
             String line = Files.readAllLines(Paths.get("src/main/resources/com/wordle/wordle/answers.txt")).get(lineNumber);
             word = line;
-            //System.out.println(line);
+            System.out.println(line);
         }
         catch(IOException e){
             System.out.println(e);
@@ -67,6 +67,26 @@ public class GameLogic {
                         correct[j] = "contains";
                         break;
                     }
+                }
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            if (correct[i].equals("contains")) {
+                boolean repeated = false;
+                for (int j = 0; j < i; j++) {
+                    if (guess.charAt(i) == guess.charAt(j)) {
+                        repeated = true;
+                        break;
+                    }
+                }
+                for (int j = i + 1; j < 5; j++) {
+                    if (guess.charAt(i) == guess.charAt(j)) {
+                        repeated = true;
+                        break;
+                    }
+                }
+                if (repeated) {
+                    correct[i] = "false";
                 }
             }
         }
