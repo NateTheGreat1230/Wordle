@@ -517,7 +517,7 @@ public class WordleController {
             boxes.setStyle("-fx-control-inner-background: #121213ff");
         }
         for (Button eachbutton : buttons) {
-            eachbutton.setStyle("-fx-background-color: #121213ff;");
+            eachbutton.setStyle("-fx-background-color: #818384ff;");
         }
         current = textBoxes.get(0);
         current.requestFocus();

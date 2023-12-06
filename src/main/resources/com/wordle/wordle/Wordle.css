@@ -6,7 +6,7 @@
 }
 
 .body {
-    -fx-background-color: linear-gradient(to bottom right, #c59cff, #7e5bfb);
+    -fx-background-color: linear-gradient(to bottom right, #8b3ce8, #371263);
 }
 
 .wrapper {
@@ -90,7 +90,7 @@
 .alphabet-button {
     -fx-min-width: 2.2em;
     -fx-font-size: 1.2em;
-    -fx-background-color: #121213ff;
+    -fx-background-color: #818384ff;
     -fx-text-fill: #f8f8f8;
     -fx-border-radius: 2em;
 }
